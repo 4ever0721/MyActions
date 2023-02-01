@@ -3,7 +3,7 @@
 import os
 import requests
 from bs4 import BeautifulSoup
-
+import time
 def sign(cookie):
     result = ""
     headers = {
@@ -11,14 +11,20 @@ def sign(cookie):
         "ContentType": "text/html;charset=gbk",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36",
     }
+    
+    time.sleep(5)
     requests.session().put(
         "https://www.52pojie.cn/home.php?mod=task&do=apply&id=2", headers=headers
     )
+    time.sleep(5)
     fa = requests.session().put(
         "https://www.52pojie.cn/home.php?mod=task&do=draw&id=2", headers=headers
     )
+    time.sleep(5)
     fb = BeautifulSoup(fa.text, "html.parser")
+    time.sleep(5)
     fc = fb.find("div", id="messagetext").find("p").text
+    time.sleep(5)
     if "您需要先登录才能继续本操作" in fc:
         result += "Cookie 失效"
     elif "恭喜" in fc:
